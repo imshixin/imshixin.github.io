@@ -2,7 +2,7 @@
  通过配置ssh以实现免密自动登录和github的ssh登录
 # 1. 生成密钥对
 
-```sh
+```bash
 ssh-keygen -t rsa -f <文件保存位置> -C "<密钥的备注>"
 ```
 
@@ -83,20 +83,20 @@ Host lbcat
 ssh <远程主机别名>
 ```
 
-# github配置
-
-先通过前几步生成一个密钥对,假设为`id_rsa_github`
+# (可选) github配置
+配置ssh密钥后才可以使用ssh仓库进行push pull（例如`git@github.com:imshixin/imshixin.git`）
+## 全局github配置
+先生成一个密钥对，假设为`C:\User\yuy\.ssh\id_rsa_github`
 
 复制公钥`id_rsa_github.pub`的所有内容，打开网页[github ssh and gpg keys](https://github.com/settings/keys)
-点击`New SSH Key`
-输入自定义的名字和公钥并保存
+点击`New SSH Key`, 输入名字和公钥并保存（github上的公钥名字可以随意设定方便区分不同公钥）
 
-配置`config`（注意密钥路径是否正确）:
+配置`C:\User\yuy\.ssh\config`（**注意密钥路径是否正确**）:
 ```yaml
 Host github.com
   User git
   HostName github.com
-  IdentityFile ~/.ssh/id_rsa_github
+  IdentityFile C:\User\yuy\.ssh\id_rsa_github
 ```
 
 测试能否正确连接上github
