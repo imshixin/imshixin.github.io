@@ -71,7 +71,7 @@ source $ZSH/oh-my-zsh.sh
 ## 字体安装
 
 ### Windows
-Windows下解压所有TIFF字体文件后全选`TIFF文件`右键安装即可
+Windows下解压所有ttf字体文件后全选`ttf文件`右键安装即可
 
 ### Linux
 
