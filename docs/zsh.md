@@ -61,7 +61,7 @@ source $ZSH/oh-my-zsh.sh
 
 # 终端字体安装
 ## 下载
-1. 推荐（等宽字体）：Jetbrains Mono Nerd Font
+1. **推荐（等宽字体）：Jetbrains Mono Nerd Font**
 [预览](https://www.programmingfonts.org/#jetbrainsmono)
 [下载](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip)
 2. MesloLG Nerd Font
@@ -70,8 +70,20 @@ source $ZSH/oh-my-zsh.sh
 
 ## 字体安装
 
-Windows下解压所有TIFF字体文件后全选右键安装即可
-#TODO Linux下字体安装方法（网上自己搜）
+### Windows
+Windows下解压所有TIFF字体文件后全选`TIFF文件`右键安装即可
+
+### Linux
+
+```bash
+# 将你需要的字体文件拷贝到系统目录
+# 也可以将压缩包内的所有ttf文件拷贝过来
+sudo cp JetBrainsMonoNerdFont-Regular.ttf /usr/share/fonts
+# 刷新字体缓存
+sudo fc-cache -fv
+# 检查是否安装上字体文件
+fc-list
+```
 
 ## Vscode集成终端配置
 在设置中搜索`终端 字体`，第一个选项就是终端的字体设置，输入`JetBrainsMono Nerd Font, MesloLGM Nerd Font, monospace`
