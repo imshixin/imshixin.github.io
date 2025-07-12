@@ -64,6 +64,7 @@ source $ZSH/oh-my-zsh.sh
 1. **推荐（等宽字体）：Jetbrains Mono Nerd Font**
 [预览](https://www.programmingfonts.org/#jetbrainsmono)
 [下载](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip)
+![Jetbrains Mono Nerd Font](https://img.xinit.xyz/docsify20250710232741447.png)
 2. MesloLG Nerd Font
 [预览](https://www.programmingfonts.org/#meslo)
 [下载](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/Meslo.zip)
