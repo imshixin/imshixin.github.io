@@ -32,7 +32,7 @@ git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.
 ```sh
 git clone https://github.com/zsh-users/zsh-completions.git ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions
 ```
-4. zsh-history-substring-search：提供历史目录的模糊搜索（可选）
+4. zsh-history-substring-search：提供历史命令的模糊搜索（可选）
 ```sh
 git clone https://github.com/zsh-users/zsh-history-substring-search ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-history-substring-search
 ```
@@ -46,7 +46,7 @@ git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git ${Z
 ### 安装power10k主题（可选）
 
 
-```
+```sh
 git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 ```
 
@@ -55,8 +55,8 @@ git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$H
 编辑`~/.zshrc`
 
 ```sh
-# 前面没安装power10k的话这里就不要改成`powerlevel10k`
-# 可以在这里查找所有主题名字：https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+# 前面没安装power10k的话这里就不要设置成`powerlevel10k`
+# 可以在这里查找和预览其他主题：https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="powerlevel10k/powerlevel10k"
 #......中间省略多行
 # 一定要覆盖原有的plugins配置
