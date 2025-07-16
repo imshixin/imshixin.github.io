@@ -1,11 +1,8 @@
 
 # 设置代理
-如果网络不好，建议设置代理，**代理地址改为自己的地址**
+如果网络不好，建议设置代理，***代理地址改为自己的地址***
 ```sh
-export http_proxy="http://192.168.120.1:10809"
-export https_proxy="http://192.168.120.1:10809"
-# 或者
-PROXY="http://192.168.120.1:10809" export http_proxy="$PROXY" https_proxy="$PROXY"
+export http_proxy="http://192.168.120.1:10808" https_proxy="http://192.168.120.1:10808"
 ```
 ***请注意，使用`sudo`命令时需要添加`-E`参数才能使用代理***
 # zsh安装
@@ -25,11 +22,11 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 ```
 2. zsh-autosuggestions
 ```sh
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 ```
 3. zsh-completions
 ```sh
-git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions
+git clone https://github.com/zsh-users/zsh-completions.git ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions
 ```
 
 
@@ -54,9 +51,12 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # 一定要覆盖原有的plugins配置
 plugins=(git sudo z zsh-completions zsh-autosuggestions zsh-syntax-highlighting extract)
 #zsh-completions config before source onmyzsh
-#下面这一行要在`source $ZSH/oh-my-zsh.sh`这之前添加上
+#下面这两行要在`source $ZSH/oh-my-zsh.sh`这之前添加上
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
+autoload -U compinit && compinit
 source $ZSH/oh-my-zsh.sh
+
+export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 ```
 
 # 终端字体安装
