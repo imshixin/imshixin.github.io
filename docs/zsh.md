@@ -69,7 +69,7 @@ plugins=(
         zsh-autosuggestions
         zsh-syntax-highlighting
         zsh-history-substring-search
-        # zsh-autosuggestions # 这个插件有点花哨，不太建议打开
+        zsh-autosuggestions # 这个插件有点花哨，可以不用
         )
 #zsh-completions config before source onmyzsh
 #下面这两行要在`source $ZSH/oh-my-zsh.sh`这之前添加上
@@ -82,6 +82,7 @@ source $ZSH/oh-my-zsh.sh
 bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
 
+# 设置提示策略
 export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 ```
 
