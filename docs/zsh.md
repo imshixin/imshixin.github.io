@@ -1,45 +1,56 @@
+# zsh和oh-my-zsh的安装与配置
 
-# 设置代理
-如果网络不好，建议设置代理，***代理地址改为自己的地址***
+> [!NOTE]
+> 如果网络不好，建议设置代理，***代理地址改为自己的地址***
+> ```sh
+> export http_proxy="http://192.168.120.1:10808" https_proxy="http://192.168.120.1:10808"
+> ```
+> ***使用`sudo`命令时需要添加`-E`参数代理才能生效***
+
+## zsh安装
 ```sh
-export http_proxy="http://192.168.120.1:10808" https_proxy="http://192.168.120.1:10808"
+sudo apt install zsh
 ```
-***请注意，使用`sudo`命令时需要添加`-E`参数才能使用代理***
-# zsh安装
-`sudo apt install zsh`
 
-# ohmyzsh安装
+## ohmyzsh安装
 
 ```sh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
-# ohmyzsh插件安装
+## ohmyzsh插件安装
 
-1. zsh-syntax-highlighting
+1. zsh-syntax-highlighting：提供语法高亮和命令检查
 ```sh
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 ```
-2. zsh-autosuggestions
+2. zsh-autosuggestions：提供历史命令和tab补全的提示
 ```sh
 git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 ```
-3. zsh-completions
+3. zsh-completions：提供额外的tab补全
 ```sh
 git clone https://github.com/zsh-users/zsh-completions.git ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions
 ```
+4. zsh-history-substring-search：提供历史目录的模糊搜索（可选）
+```sh
+git clone https://github.com/zsh-users/zsh-history-substring-search ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-history-substring-search
+```
+5. zsh-autocomplete：提供自动提示和补全，相比zsh-autosuggestions功能更强大更复杂
+```sh
+git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autocomplete
+```
 
+## zsh配置文件修改
 
-# zsh配置文件修改
-
-## 安装power10k主题（可选）
+### 安装power10k主题（可选）
 
 
 ```
 git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 ```
 
-## 修改配置
+### 修改配置
 
 编辑`~/.zshrc`
 
@@ -49,18 +60,33 @@ git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$H
 ZSH_THEME="powerlevel10k/powerlevel10k"
 #......中间省略多行
 # 一定要覆盖原有的plugins配置
-plugins=(git sudo z zsh-completions zsh-autosuggestions zsh-syntax-highlighting extract)
+plugins=(
+        git # git的aliases
+        sudo # 双击esc切换sudo执行
+        z # 输入模糊路径，使用z命令一键跳转到历史目录
+        extract # 解压任意压缩包
+        zsh-completions
+        zsh-autosuggestions
+        zsh-syntax-highlighting
+        zsh-history-substring-search
+        # zsh-autosuggestions # 这个插件有点花哨，不太建议打开
+        )
 #zsh-completions config before source onmyzsh
 #下面这两行要在`source $ZSH/oh-my-zsh.sh`这之前添加上
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 autoload -U compinit && compinit
 source $ZSH/oh-my-zsh.sh
 
+# zsh-history-substring-search的上下方向键键位绑定，可以绑定到其他键位
+# see: https://github.com/zsh-users/zsh-history-substring-search
+bindkey "$terminfo[kcuu1]" history-substring-search-up
+bindkey "$terminfo[kcud1]" history-substring-search-down
+
 export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 ```
 
-# 终端字体安装
-## 下载
+## 终端字体安装
+### 下载
 1. **推荐（等宽字体）：Jetbrains Mono Nerd Font**
 [预览](https://www.programmingfonts.org/#jetbrainsmono)
 [下载](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip)
@@ -69,12 +95,12 @@ export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 [预览](https://www.programmingfonts.org/#meslo)
 [下载](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/Meslo.zip)
 
-## 字体安装
+### 字体安装
 
-### Windows
+#### Windows
 Windows下解压所有ttf字体文件后全选`ttf文件`右键安装即可
 
-### Linux
+#### Linux
 
 ```bash
 # 将你需要的字体文件拷贝到系统目录
@@ -86,7 +112,7 @@ sudo fc-cache -fv
 fc-list
 ```
 
-## Vscode集成终端配置
+### Vscode集成终端配置
 在设置中搜索`终端 字体`，第一个选项就是终端的字体设置，输入`JetBrainsMono Nerd Font, MesloLGM Nerd Font, monospace`
 > 逗号分割多个字体，会从第一个往后依次检索系统已安装的字体使用
 
@@ -97,14 +123,14 @@ fc-list
 ```
 ![Vscode集成终端配置](http://img.xinit.xyz/markdownPixPin_2025-06-16_11-00-02.png?image)
 
-## Windows Terminal（终端）配置
+### Windows Terminal（终端）配置
 在 设置 > 默认值 > 外观 下有字体设置
 
 ![Windows Terminal（终端）配置](http://img.xinit.xyz/markdownPixPin_2025-06-16_10-58-13.png)
 
 输入`JetBrainsMono Nerd Font`或点击输入框后会显示系统所有已安装字体，选择JetBrainsMono Nerd Font即可
 
-# ros 环境配置
+## .zshrc中的ros 环境配置
 > 添加到`~/.zshrc`最前面
 >
 > zsh对ROS需要安装额外的自动补全插件，使用`sudo apt install python3-argcomplete`安装
@@ -205,7 +231,7 @@ rosup(){
 # fi
 ```
 
-# other
+## other
 
 这些不用设置
 
