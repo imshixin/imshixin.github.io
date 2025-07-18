@@ -36,7 +36,7 @@ git clone https://github.com/zsh-users/zsh-completions.git ${ZSH_CUSTOM:-${ZSH:-
 ```sh
 git clone https://github.com/zsh-users/zsh-history-substring-search ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-history-substring-search
 ```
-5. zsh-autocomplete：提供自动提示和补全，相比zsh-autosuggestions功能更强大更复杂
+5. zsh-autocomplete：提供自动提示和补全，相比zsh-autosuggestions功能更强大更复杂（可选）
 ```sh
 git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autocomplete
 ```
@@ -84,9 +84,12 @@ bindkey "$terminfo[kcud1]" history-substring-search-down
 
 # 设置提示策略
 export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+
+# zsh-autocomplete提示延迟一定时间
+zstyle ':autocomplete:*' delay 0.5  # seconds (float)
 ```
 
-## 终端字体安装
+## 终端字体设置
 ### 下载
 1. **推荐（等宽字体）：Jetbrains Mono Nerd Font**
 [预览](https://www.programmingfonts.org/#jetbrainsmono)
