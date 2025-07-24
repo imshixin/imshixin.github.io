@@ -87,6 +87,9 @@ export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
 # zsh-autocomplete提示延迟一定时间
 zstyle ':autocomplete:*' delay 0.5  # seconds (float)
+# 开启通配符
+setopt nonomatch
+
 ```
 
 ## 终端字体设置
