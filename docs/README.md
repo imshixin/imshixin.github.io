@@ -1,6 +1,8 @@
 # 主页
 ### 配置教程：
-* [zsh配置](/zsh)
-* [ssh免密配置](/ssh)
-* [设置代理](/代理配置)
+* [zsh安装与插件配置](/zsh)
+* [ssh免密登录配置](/ssh)
+* [如何设置代理](/代理配置)
+* [全新Ubuntu系统配置](./install.md)
+* [Windows开启ntp服务器](/Windows开启ntp服务器)
 
