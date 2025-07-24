@@ -34,3 +34,30 @@
 
     - 新建规则：（左边栏）入站规则--->（右边栏）新建规则---> 端口 ---下一步----UDP----特定本地端口：123，其他保持默认，名称输入ntp后保存
 
+## 一键开启（暂未验证）
+
+新建文件`ntp.ps1`
+```powershell
+# 启用 NTP 服务器功能
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\W32Time\TimeProviders\NtpServer" -Name "Enabled" -Value 1 -Type DWord
+
+# 配置为可靠时间源
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\W32Time\Config" -Name "AnnounceFlags" -Value 5 -Type DWord
+
+# 设置服务为自动启动
+Set-Service -Name "w32time" -StartupType Automatic
+
+# 立即启动服务
+Start-Service -Name "w32time"
+
+# 放行防火墙（UDP 123）
+if (-not (Get-NetFirewallRule -DisplayName "NTP Server" -ErrorAction SilentlyContinue)) {
+    New-NetFirewallRule -DisplayName "NTP Server" -Direction Inbound -Protocol UDP -LocalPort 123 -Action Allow
+}
+
+# 验证配置
+Write-Host "当前 W32Time 状态:"
+w32tm /query /status
+w32tm /query /configuration
+```
+保存右键执行
