@@ -7,18 +7,32 @@
 > ```
 > ***使用`sudo`命令时需要添加`-E`参数代理才能生效***
 
-## zsh安装
+## 安装
+
+> 一键全装
+> ```
+> sudo apt install zsh
+> sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+> git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+> git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+> git clone https://github.com/zsh-users/zsh-completions.git ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions
+> git clone https://github.com/zsh-users/zsh-history-substring-search ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-history-substring-search
+> git clone --depth 1 https://github.com/marlonrichert/zsh-autocomplete.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autocomplete
+> ```
+
+安装zsh
+
 ```sh
 sudo apt install zsh
 ```
 
-## ohmyzsh安装
+安装ohmyzsh
 
 ```sh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
-## ohmyzsh插件安装
+安装ohmyzsh插件
 
 1. zsh-syntax-highlighting：提供语法高亮和命令检查
 ```sh
@@ -38,80 +52,88 @@ git clone https://github.com/zsh-users/zsh-history-substring-search ${ZSH_CUSTOM
 ```
 5. zsh-autocomplete：提供自动提示和补全，相比zsh-autosuggestions功能更强大更复杂（可选）
 ```sh
-git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autocomplete
+git clone --depth 1 https://github.com/marlonrichert/zsh-autocomplete.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autocomplete
 ```
 
-## zsh配置文件修改
 
-### 安装power10k主题（可选）
 
+安装power10k主题（可选）
 
 ```sh
 git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 ```
 
-### 修改配置
+## zsh配置文件修改
+
 
 编辑`~/.zshrc`
 
+- 找到`ZSH_THEME`，修改为你自己喜欢的一个主题
 ```sh
-# 前面没安装power10k的话这里就不要设置成`powerlevel10k`
-# 可以在这里查找和预览其他主题：https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+# 安装了power10k的话可以按如下设置
+# 或者在这里查找和预览其他主题：https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="powerlevel10k/powerlevel10k"
-#......中间省略多行
-# 一定要覆盖原有的plugins配置
-plugins=(
-        git # git的aliases
-        sudo # 双击esc切换sudo执行
-        z # 输入模糊路径，使用z命令一键跳转到历史目录
-        extract # 解压任意压缩包
-        zsh-completions
-        zsh-autosuggestions
-        zsh-syntax-highlighting
-        zsh-history-substring-search
-        zsh-autosuggestions # 这个插件有点花哨，可以不用
-        )
-#zsh-completions config before source onmyzsh
-#下面这两行要在`source $ZSH/oh-my-zsh.sh`这之前添加上
-fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
-autoload -U compinit && compinit
-source $ZSH/oh-my-zsh.sh
-
-# zsh-history-substring-search的上下方向键键位绑定，可以绑定到其他键位
-# see: https://github.com/zsh-users/zsh-history-substring-search
-bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "$terminfo[kcud1]" history-substring-search-down
-
-# 设置提示策略
-export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-
-# zsh-autocomplete提示延迟一定时间
-zstyle ':autocomplete:*' delay 0.5  # seconds (float)
-# 开启通配符
-setopt nonomatch
-
 ```
 
+- 往下找到`plugins`，配置zsh插件，将原有的`plugins=...`和`source $ZSH/oh-my-zsh.sh`这两行替换为
+
+    ```sh
+    # 一定要覆盖原有的plugins配置
+    plugins=(
+            git # git的aliases
+            sudo # 双击esc切换sudo执行
+            z # 输入模糊路径，使用z命令一键跳转到历史目录
+            extract # 解压任意压缩包
+            zsh-completions
+            zsh-autosuggestions
+            zsh-syntax-highlighting
+            zsh-history-substring-search
+            zsh-autosuggestions # 这个插件有点花哨，可以不用
+            )
+    #zsh-completions config before source onmyzsh
+    #下面这两行要在`source $ZSH/oh-my-zsh.sh`这之前添加上
+    fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
+    autoload -U compinit && compinit
+
+    source $ZSH/oh-my-zsh.sh
+
+    # zsh-history-substring-search的上下方向键键位绑定，可以绑定到其他键位
+    # see as: https://github.com/zsh-users/zsh-history-substring-search
+    bindkey "$terminfo[kcuu1]" history-substring-search-up
+    bindkey "$terminfo[kcud1]" history-substring-search-down
+
+    # 设置提示策略
+    export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+
+    # zsh-autocomplete提示延迟一定时间
+    zstyle ':autocomplete:*' delay 0.5  # seconds (float)
+    # 开启通配符
+    setopt nonomatch
+    ```
+
 ## 终端字体设置
-### 下载
-1. **推荐（等宽字体）：Jetbrains Mono Nerd Font**
-[预览](https://www.programmingfonts.org/#jetbrainsmono)
-[下载](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip)
-![Jetbrains Mono Nerd Font](https://img.xinit.xyz/docsify20250710232741447.png)
-2. MesloLG Nerd Font
-[预览](https://www.programmingfonts.org/#meslo)
-[下载](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/Meslo.zip)
 
 ### 字体安装
+
+1. **推荐（等宽字体）：Jetbrains Mono Nerd Font**
+
+    [预览](https://www.programmingfonts.org/#jetbrainsmono)
+    [下载](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip)
+
+    <!-- ![Jetbrains Mono Nerd Font](https://img.xinit.xyz/docsify20250710232741447.png) -->
+2. MesloLG Nerd Font
+
+    [预览](https://www.programmingfonts.org/#meslo)
+    [下载](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/Meslo.zip)
 
 #### Windows
 Windows下解压所有ttf字体文件后全选`ttf文件`右键安装即可
 
 #### Linux
 
+将你需要的字体文件拷贝到系统目录,
+也可以将压缩包内的所有ttf文件拷贝过来
 ```bash
-# 将你需要的字体文件拷贝到系统目录
-# 也可以将压缩包内的所有ttf文件拷贝过来
 sudo cp JetBrainsMonoNerdFont-Regular.ttf /usr/share/fonts
 # 刷新字体缓存
 sudo fc-cache -fv
@@ -128,17 +150,18 @@ fc-list
 "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font, MesloLGM Nerd Font, monospace"
 
 ```
-![Vscode集成终端配置](http://img.xinit.xyz/markdownPixPin_2025-06-16_11-00-02.png?image)
+<!-- ![Vscode集成终端配置](http://img.xinit.xyz/markdownPixPin_2025-06-16_11-00-02.png?image) -->
 
 ### Windows Terminal（终端）配置
 在 设置 > 默认值 > 外观 下有字体设置
 
-![Windows Terminal（终端）配置](http://img.xinit.xyz/markdownPixPin_2025-06-16_10-58-13.png)
+<!-- ![Windows Terminal（终端）配置](http://img.xinit.xyz/markdownPixPin_2025-06-16_10-58-13.png) -->
 
 输入`JetBrainsMono Nerd Font`或点击输入框后会显示系统所有已安装字体，选择JetBrainsMono Nerd Font即可
 
 ## .zshrc中的ros 环境配置
-> 添加到`~/.zshrc`最前面
+
+> 添加到`~/.zshrc`最后面
 >
 > zsh对ROS需要安装额外的自动补全插件，使用`sudo apt install python3-argcomplete`安装
 
@@ -177,22 +200,26 @@ rosup(){
         eval "$(register-python-argcomplete3 ros2)"
         eval "$(register-python-argcomplete3 colcon)"
 }
-# 自动source ros环境，目前不建议使用
-# if [ -e "install/local_setup.zsh" ]
-# then
-#         read -k 1 "s?source local_setup.zsh( y /default n)? "
-#         echo "\r"
-#         if [ -n $s ]
-#         then
-#                 if [ $s == 'y' -o $s == 'Y' ]
-#                 then
-#                         rosup
-#                 fi
-#         fi
-# fi
 ```
 
-bash的代码:
+自动激活ros环境，有兼容问题不推荐使用
+```sh
+# 自动source ros环境，目前不建议使用
+if [ -e "install/local_setup.zsh" ]
+then
+        read -k 1 "s?source local_setup.zsh( y /default n)? "
+        echo "\r"
+        if [ -n $s ]
+        then
+                if [ $s == 'y' -o $s == 'Y' ]
+                then
+                        rosup
+                fi
+        fi
+fi
+```
+
+如果需要在bash中使用（如root用户），将这些代码粘贴到`~/.bashrc`:
 ```bash
 rosup(){
         #pushd install > /dev/null
