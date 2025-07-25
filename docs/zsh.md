@@ -88,7 +88,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
             zsh-autosuggestions
             zsh-syntax-highlighting
             zsh-history-substring-search
-            zsh-autosuggestions # 这个插件有点花哨，可以不用
+            zsh-autocomplete # 这个插件有点花哨，可以不用
             )
     #zsh-completions config before source onmyzsh
     #下面这两行要在`source $ZSH/oh-my-zsh.sh`这之前添加上
@@ -111,53 +111,6 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
     setopt nonomatch
     ```
 
-## 终端字体设置
-
-### 字体安装
-
-1. **推荐（等宽字体）：Jetbrains Mono Nerd Font**
-
-    [预览](https://www.programmingfonts.org/#jetbrainsmono)
-    [下载](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip)
-
-    <!-- ![Jetbrains Mono Nerd Font](https://img.xinit.xyz/docsify20250710232741447.png) -->
-2. MesloLG Nerd Font
-
-    [预览](https://www.programmingfonts.org/#meslo)
-    [下载](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/Meslo.zip)
-
-#### Windows
-Windows下解压所有ttf字体文件后全选`ttf文件`右键安装即可
-
-#### Linux
-
-将你需要的字体文件拷贝到系统目录,
-也可以将压缩包内的所有ttf文件拷贝过来
-```bash
-sudo cp JetBrainsMonoNerdFont-Regular.ttf /usr/share/fonts
-# 刷新字体缓存
-sudo fc-cache -fv
-# 检查是否安装上字体文件
-fc-list
-```
-
-### Vscode集成终端配置
-在设置中搜索`终端 字体`，第一个选项就是终端的字体设置，输入`JetBrainsMono Nerd Font, MesloLGM Nerd Font, monospace`
-> 逗号分割多个字体，会从第一个往后依次检索系统已安装的字体使用
-
-或者直接在`settings.json`中添加
-```json
-"terminal.integrated.fontFamily": "JetBrainsMono Nerd Font, MesloLGM Nerd Font, monospace"
-
-```
-<!-- ![Vscode集成终端配置](http://img.xinit.xyz/markdownPixPin_2025-06-16_11-00-02.png?image) -->
-
-### Windows Terminal（终端）配置
-在 设置 > 默认值 > 外观 下有字体设置
-
-<!-- ![Windows Terminal（终端）配置](http://img.xinit.xyz/markdownPixPin_2025-06-16_10-58-13.png) -->
-
-输入`JetBrainsMono Nerd Font`或点击输入框后会显示系统所有已安装字体，选择JetBrainsMono Nerd Font即可
 
 ## .zshrc中的ros 环境配置
 
@@ -264,6 +217,55 @@ rosup(){
 #         fi
 # fi
 ```
+
+## 终端字体设置
+
+### 字体安装
+
+1. **推荐（等宽字体）：Jetbrains Mono Nerd Font**
+
+    [预览](https://www.programmingfonts.org/#jetbrainsmono)
+    [下载](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip)
+
+    <!-- ![Jetbrains Mono Nerd Font](https://img.xinit.xyz/docsify20250710232741447.png) -->
+2. MesloLG Nerd Font
+
+    [预览](https://www.programmingfonts.org/#meslo)
+    [下载](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/Meslo.zip)
+
+#### Windows
+Windows下解压所有ttf字体文件后全选`ttf文件`右键安装即可
+
+#### Linux
+
+将你需要的字体文件拷贝到系统目录,
+也可以将压缩包内的所有ttf文件拷贝过来
+```bash
+sudo cp JetBrainsMonoNerdFont-Regular.ttf /usr/share/fonts
+# 刷新字体缓存
+sudo fc-cache -fv
+# 检查是否安装上字体文件
+fc-list
+```
+
+### Vscode集成终端配置
+在设置中搜索`终端 字体`，第一个选项就是终端的字体设置，输入`JetBrainsMono Nerd Font, MesloLGM Nerd Font, monospace`
+> 逗号分割多个字体，会从第一个往后依次检索系统已安装的字体使用
+
+或者直接在`settings.json`中添加
+```json
+"terminal.integrated.fontFamily": "JetBrainsMono Nerd Font, MesloLGM Nerd Font, monospace"
+
+```
+<!-- ![Vscode集成终端配置](http://img.xinit.xyz/markdownPixPin_2025-06-16_11-00-02.png?image) -->
+
+### Windows Terminal（终端）配置
+在 设置 > 默认值 > 外观 下有字体设置
+
+<!-- ![Windows Terminal（终端）配置](http://img.xinit.xyz/markdownPixPin_2025-06-16_10-58-13.png) -->
+
+输入`JetBrainsMono Nerd Font`或点击输入框后会显示系统所有已安装字体，选择JetBrainsMono Nerd Font即可
+
 
 ## other
 
