@@ -55,6 +55,7 @@ mkdir -p /home/${username}/.ssh
 # EOF前的空行是必须的
 cat <<EOF | tee -a /home/${username}/.ssh/authorized_keys
 <你的公钥内容>
+
 EOF
 
 ```

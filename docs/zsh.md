@@ -9,16 +9,36 @@
 
 ## 安装
 
-> 一键全装
-> ```
-> sudo apt install zsh
-> sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-> git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-> git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-> git clone https://github.com/zsh-users/zsh-completions.git ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions
-> git clone https://github.com/zsh-users/zsh-history-substring-search ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-history-substring-search
-> git clone --depth 1 https://github.com/marlonrichert/zsh-autocomplete.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autocomplete
-> ```
+一键全装
+
+<!-- 使用圆括号将命令合并为一个命令，避免多个历史记录 -->
+```bash
+(
+printf "请输入 HTTP/HTTPS 代理地址（格式如 192.168.120.1:8080，回车跳过）: "
+read -r proxy_input
+
+if [ -n "$proxy_input" ]; then
+        export http_proxy="http://$proxy_input"
+        export https_proxy="http://$proxy_input"
+        echo "已设置代理: http_proxy=$http_proxy, https_proxy=$https_proxy"
+else
+    echo "跳过设置代理"
+fi
+# 安装zsh和插件
+sudo apt install zsh curl git
+[ -d ~/.oh-my-zsh ] && rm -rf ~/.oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-completions.git ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions
+git clone https://github.com/zsh-users/zsh-history-substring-search ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-history-substring-search
+git clone --depth 1 https://github.com/marlonrichert/zsh-autocomplete.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autocomplete
+echo -e "\e[1;37;42m install zsh and oh-my-zsh plugins ok! \e[0m"
+echo -e "\e[1;37;42m changing default shell \e[0m"
+echo -e "\e[1;37;42m please enter your password: \e[0m"
+chsh -s $(which zsh)
+)
+```
 
 安装zsh
 
@@ -46,16 +66,17 @@ git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.
 ```sh
 git clone https://github.com/zsh-users/zsh-completions.git ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions
 ```
-4. zsh-history-substring-search：提供历史命令的模糊搜索（可选）
+4. zsh-history-substring-search：提供历史命令的模糊搜索
 ```sh
 git clone https://github.com/zsh-users/zsh-history-substring-search ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-history-substring-search
+
+###### 以下为可选安装：
+
 ```
-5. zsh-autocomplete：提供自动提示和补全，相比zsh-autosuggestions功能更强大更复杂（可选）
+1. zsh-autocomplete：提供自动提示和补全，相比zsh-autosuggestions功能更强大更复杂（可选）
 ```sh
 git clone --depth 1 https://github.com/marlonrichert/zsh-autocomplete.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autocomplete
 ```
-
-
 
 安装power10k主题（可选）
 
@@ -75,8 +96,13 @@ git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$H
 ZSH_THEME="powerlevel10k/powerlevel10k"
 ```
 
-- 往下找到`plugins`，配置zsh插件，将原有的`plugins=...`和`source $ZSH/oh-my-zsh.sh`这两行替换为
+- 往下找到`plugins`，配置zsh插件，将原有的
+    ```sh
+    plugins=(git)
 
+    source $ZSH/oh-my-zsh.sh
+    ```
+    替换为
     ```sh
     # 一定要覆盖原有的plugins配置
     plugins=(
@@ -155,7 +181,7 @@ rosup(){
 }
 ```
 
-自动激活ros环境，有兼容问题不推荐使用
+自动激活ros环境，有兼容问题暂不推荐使用
 ```sh
 # 自动source ros环境，目前不建议使用
 if [ -e "install/local_setup.zsh" ]
@@ -238,14 +264,16 @@ Windows下解压所有ttf字体文件后全选`ttf文件`右键安装即可
 
 #### Linux
 
-将你需要的字体文件拷贝到系统目录,
-也可以将压缩包内的所有ttf文件拷贝过来
+一键下载安装命令：
 ```bash
-sudo cp JetBrainsMonoNerdFont-Regular.ttf /usr/share/fonts
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip -O JetBrainsMono.zip
+unzip -d JetBrainsMono JetBrainsMono.zip
+sudo mkdir -p /usr/share/fonts/JetBrainsMonoNF
+sudo cp JetBrainsMono/JetBrainsMonoNerdFont-Regular.ttf /usr/share/fonts/JetBrainsMonoNF/
 # 刷新字体缓存
 sudo fc-cache -fv
 # 检查是否安装上字体文件
-fc-list
+fc-list | grep JetBrains
 ```
 
 ### Vscode集成终端配置

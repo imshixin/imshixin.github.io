@@ -20,29 +20,24 @@ ssh-keygen -t rsa -f ~/.ssh/id_rsa_lubancat -C "一些备注"
 
 命令执行完成后会在指定的目录下生成`id_rsa_lubancat.pub`（公钥）和`id_rsa_lubancat`（私钥），私钥自己留着，公钥需要拷贝到远程服务器上
 
-## 2. 将公钥`.pub`文件拷贝到需要登陆的服务器上
+## 2. 拷贝公钥到远程主机上
 
+
+将本机的公钥拷贝到远程主机上的`~/.ssh/authorized_keys`中（没有就新建）：
 ```sh
 scp <公钥文件路径> <远程主机用户名>@<远程主机ip地址>:~/.ssh/authorized_keys
 ```
+也可以手动复制公钥内容到文件`~/.ssh/authorized_keys`中，如使用nano或vim打开文件`~/.ssh/authorized_keys`，将公钥文件（`.pub`文件）中的内容拷贝进去，并**新建一个空行**（文件最后一定要有一行空行）
 
-仍然以`id_rsa_lubancat`举例，远程主机的用户名为`cat`，地址为`192.168.120.3`
+> 如果是在远程主机上生成密钥对，则将密钥（不带`.pub`的同名文件）文件复制到本机的`~/.ssh/`目录下，
+>
+> 若在Windows上手动复制远程主机的密钥文本内容到本机`~/.ssh/`下，一定要确保换行符为`LF`而不是Windows的`CRLF`，且最后有一行空行
 
-- 法1：使用`scp`拷贝
+## 3. 远程主机开启ssh密钥登陆
 
-```sh
-scp C:\User\yuy\.ssh\id_rsa_lubancat.pub cat@hostip:~/.ssh/authorized_keys
-```
+在远程主机中，编辑配置文件：`/etc/ssh/sshd_config`
 
-- 法2： 手动拷贝上去
-
-登陆上远程主机，使用nano或vim打开文件`~/.ssh/authorized_keys`，将`id_rsa_lubancat.pub`中的内容拷贝进去，并**新建一个空行**（一定要有个空行）
-
-## 3. 服务器开启ssh密钥登陆
-
-在远程主机中，使用你习惯的编辑器编辑`sshd_config`配置文件：`/etc/ssh/sshd_config`
-
-找到这一行
+找到这一行（使用`vim`时可以输入`/Pubkey`来进行查找）
 ```sh
 #PubkeyAuthentication yes
 ```
