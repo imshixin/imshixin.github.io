@@ -1,37 +1,34 @@
 # ssh配置
  通过配置ssh以实现免密自动登录和github的ssh登录
+
+ 如果有多台本地主机需要连接到同一个远程主机，推荐在远程主机生成密钥对，然后将密钥拷贝到所有本地主机上
 ## 1. 生成密钥对
-
 ```bash
-ssh-keygen -t rsa -f <密钥对保存位置> -C "<密钥的备注>"
+ssh-keygen -t rsa -f <密钥对文件路径> -C "<密钥的备注>"
 ```
+密钥对文件路径包含密钥文件名，Windows推荐保存到`C:\User\<用户名>\.ssh\<密钥名>`, Linux推荐保存到`~/.ssh/<密钥名>`
 
-例如，要生成的密钥对文件为`C:\User\yuy\.ssh\id_rsa_lubancat`（确保目录已存在）
+命令执行完成后会在指定的目录下生成`<密钥文件名>.pub`（公钥）和`<密钥文件名>`（私钥），私钥应保存到本地主机，公钥应保存到远程主机
 
-
-Windows下：
-```bash
-ssh-keygen -t rsa -f C:\User\yuy\.ssh\id_rsa_lubancat -C "一些备注"
-```
-Linux下：
+例如要生成的密钥对文件路径为`~\.ssh\id_rsa_lubancat`（确保目录已存在）
 ```bash
 ssh-keygen -t rsa -f ~/.ssh/id_rsa_lubancat -C "一些备注"
 ```
 
-命令执行完成后会在指定的目录下生成`id_rsa_lubancat.pub`（公钥）和`id_rsa_lubancat`（私钥），私钥自己留着，公钥需要拷贝到远程服务器上
-
 ## 2. 拷贝公钥到远程主机上
 
-
-将本机的公钥拷贝到远程主机上的`~/.ssh/authorized_keys`中（没有就新建）：
+可以使用将本机的公钥拷贝到远程主机上的`~/.ssh/authorized_keys`中：
 ```sh
 scp <公钥文件路径> <远程主机用户名>@<远程主机ip地址>:~/.ssh/authorized_keys
 ```
-也可以手动复制公钥内容到文件`~/.ssh/authorized_keys`中，如使用nano或vim打开文件`~/.ssh/authorized_keys`，将公钥文件（`.pub`文件）中的内容拷贝进去，并**新建一个空行**（文件最后一定要有一行空行）
+例如`scp C:\User\yuy\.ssh\id_rsa_lubancat cat@192.168.120.3:~/.ssh/authorized_keys`
 
-> 如果是在远程主机上生成密钥对，则将密钥（不带`.pub`的同名文件）文件复制到本机的`~/.ssh/`目录下，
+也可以手动复制公钥内容到文件`~/.ssh/authorized_keys`中，
+复制的同时**在文件最后新建一个空行**（确保最后一定要有一行空行）
+
+> 如果是在远程主机上生成密钥对，则将密钥（不带`.pub`的同名文件）文件复制到本机的`~/.ssh/`或`C:\Users\<用户名>\.ssh\`目录下，
 >
-> 若在Windows上手动复制远程主机的密钥文本内容到本机`~/.ssh/`下，一定要确保换行符为`LF`而不是Windows的`CRLF`，且最后有一行空行
+> 若在Windows上手动复制远程主机的密钥文本内容到本机`C:\Users\<用户名>\.ssh\`下，一定要确保换行符为`LF`而不是Windows的`CRLF`
 
 ## 3. 远程主机开启ssh密钥登陆
 
