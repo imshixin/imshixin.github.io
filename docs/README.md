@@ -6,6 +6,12 @@
 * [全新Ubuntu系统配置](/全新Ubuntu安装配置.md)
 * [Windows开启ntp服务器](/Windows开启ntp服务器.md)
 
+### IP分配表
+
+主机和SBC每人各分配10的倍数个IP地址，传感器也是一样
+
+[IP分配表在线文档](https://www.kdocs.cn/l/cne9YXWJgTKw)
+
 ### 文本教程或手册
 
 - [Google Style Guides](https://google.github.io/styleguide/)
