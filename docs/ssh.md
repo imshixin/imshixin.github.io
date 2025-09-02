@@ -47,7 +47,7 @@ PubkeyAuthentication yes
 
 ## 4. 本机ssh配置
 
-打开`C:\User\<你的用户名>\.ssh\config`（不存在就新建）
+打开文件`C:\User\<你的用户名>\.ssh\config`（不存在就新建）
 
 ```ssh_config
 Host <远程主机别名>
@@ -57,7 +57,7 @@ Host <远程主机别名>
 
 ```
 
-举例：将主机`cat@192.168.120.3`配置别名`lbcat`并设置密钥登录
+例如：将主机`cat@192.168.120.3`配置别名`lbcat`并设置密钥登录
 ```config
 Host lbcat
   User cat
@@ -65,6 +65,7 @@ Host lbcat
   IdentityFile C:\User\yuy\.ssh\id_rsa_lubancat
   PreferredAuthentications publickey
 ```
+> 关于更多配置项，请参考[文档](https://linux.die.net/man/5/ssh_config)
 
 ## 5. 验证登录
 
@@ -98,10 +99,10 @@ Host github.com
   IdentityFile C:\User\yuy\.ssh\id_rsa_github
 ```
 
-测试能否正确连接上github
+使用`ssh -T git@github.com`测试能否正确连接上github
 
-```sh
-PS D:\Documents\docsify> ssh -T git@github.com
+```terminal
+$|info|ssh -T git@github.com
 Hi imshixin! You've successfully authenticated, but GitHub does not provide shell access.
 ```
 能够正确识别到用户名且显示`successfully authenticated`说明配置正确
