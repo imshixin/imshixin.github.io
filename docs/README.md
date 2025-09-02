@@ -1,14 +1,14 @@
 # 主页
 ### 配置教程：
-* [zsh安装与插件配置](/zsh.md)
-* [ssh免密登录配置](/ssh.md)
-* [如何设置代理](/代理配置.md)
-* [全新Ubuntu系统配置](/全新Ubuntu安装配置.md)
-* [Windows开启ntp服务器](/Windows开启ntp服务器.md)
+* [zsh安装与插件配置](./zsh.md)
+* [ssh免密登录配置](./ssh.md)
+* [如何设置代理](./代理配置.md)
+* [全新Ubuntu系统配置](./全新Ubuntu安装配置.md)
+* [Windows开启ntp服务器](./Windows开启ntp服务器.md)
 
 ### IP分配表
 
-主机和SBC每人各分配10的倍数个IP地址，传感器也是一样
+主机和单板电脑每人各分配10的倍数个IP地址，传感器也是一样
 
 [IP分配表在线文档](https://www.kdocs.cn/l/cne9YXWJgTKw)
 
