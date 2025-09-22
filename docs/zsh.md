@@ -89,7 +89,11 @@ git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$H
 
 编辑`~/.zshrc`
 
-- 找到`ZSH_THEME`，修改为你自己喜欢的一个主题
+- 找到`ZSH_THEME`，修改为你自己喜欢的一个主题，例如
+```sh
+ZSH_THEME="candy"
+```
+或者
 ```sh
 # 安装了power10k的话可以按如下设置
 # 或者在这里查找和预览其他主题：https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
@@ -114,7 +118,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
             zsh-autosuggestions
             zsh-syntax-highlighting
             zsh-history-substring-search
-            zsh-autocomplete # 这个插件有点花哨，可以不用
+            # zsh-autocomplete # 这个插件有点花哨，可以不用
             )
     #zsh-completions config before source onmyzsh
     #下面这两行要在`source $ZSH/oh-my-zsh.sh`这之前添加上
@@ -122,8 +126,11 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
     autoload -U compinit && compinit
 
     source $ZSH/oh-my-zsh.sh
+    ZSH_THEME_TERM_TITLE_IDLE="%n@%m:%~"  # 修改终端窗口标题，空闲时显示：用户名@主机名:当前目录
+    ZSH_THEME_TERM_TAB_TITLE_IDLE="%n@%m:%~"  # 上面这个可能不生效，这个可能会生效
 
     # zsh-history-substring-search的上下方向键键位绑定，可以绑定到其他键位
+    # 输入模糊指令后按方向上键搜索历史输入指令
     # see as: https://github.com/zsh-users/zsh-history-substring-search
     bindkey "$terminfo[kcuu1]" history-substring-search-up
     bindkey "$terminfo[kcud1]" history-substring-search-down

@@ -5,6 +5,7 @@
 * [如何设置代理](./代理配置.md)
 * [全新Ubuntu系统配置](./全新Ubuntu安装配置.md)
 * [Windows开启ntp服务器](./Windows开启ntp服务器.md)
+* [Flash_win使用手册](./Flash_win使用手册.md)
 
 ### IP分配表
 
@@ -14,7 +15,7 @@
 
 ### 文本教程或手册
 
-- [Google Style Guides](https://google.github.io/styleguide/)
+- [Google Style Guides 谷歌代码风格指南](https://google.github.io/styleguide/)
 - shell
   - [阮一峰 Bash 脚本教程](https://www.bookstack.cn/read/bash-tutorial/docs-intro.md)
   - [终极 Bash 脚本指南](https://razeen.me/posts/the-ultimate-programmers-guide-to-bash-scripting/)

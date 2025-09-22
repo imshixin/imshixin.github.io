@@ -28,9 +28,9 @@ echo "Acquire::https::Proxy \"http://${proxy}\";" | sudo tee -a /etc/apt/apt.con
 
 ## 配置时间同步
 
-**修改`ntphost`为你自己的ntp服务器地址**
+**修改`ntphost`为你自己的ntp服务器地址，多个用空格隔开**
 ```bash
-ntphost="192.168.120.1 192.168.120.6"
+ntphost="192.168.120.11 192.168.120.12"
 sudo sed -i 's/^NTP=/# &/;  s/^RootDistanceMaxSec=/# &/' /etc/systemd/timesyncd.conf
 sudo sed -i "s/\[Time\]/\[Time\]\nNTP=${ntphost}\nRootDistanceMaxSec=100y/" /etc/systemd/timesyncd.conf
 sudo timedatectl set-ntp true
