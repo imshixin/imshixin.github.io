@@ -30,7 +30,12 @@ scp <公钥文件路径> <远程主机用户名>@<远程主机ip地址>:~/.ssh/a
 >
 > 若在Windows上手动复制远程主机的密钥文本内容到本机`C:\Users\<用户名>\.ssh\`下，一定要确保换行符为`LF`而不是Windows的`CRLF`
 
-## 3. 远程主机开启ssh密钥登陆
+## 3. 远程主机开启ssh密钥登陆（非必须）
+
+> [!NOTE]
+> 大部分linux系统默认开启了密钥登陆，因此**无需执行这一步**
+>
+> 如果其他步骤配置好后无法登录再考虑配置此项
 
 在远程主机中，编辑配置文件：`/etc/ssh/sshd_config`
 
@@ -47,7 +52,7 @@ PubkeyAuthentication yes
 
 ## 4. 本机ssh配置
 
-打开文件`C:\User\<你的用户名>\.ssh\config`（不存在就新建）
+打开文件`C:\User\<你的用户名>\.ssh\config`或`~/.ssh/config`（不存在就新建），添加内容：
 
 ```ssh_config
 Host <远程主机别名>
