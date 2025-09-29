@@ -1,11 +1,9 @@
 # zsh和oh-my-zsh的安装与配置
 
 > [!NOTE]
-> 如果网络不好，建议设置代理，**代理地址改为自己的地址**
-> ```sh
-> export http_proxy="http://192.168.120.1:10808" https_proxy="http://192.168.120.1:10808"
-> ```
-> ***使用`sudo`命令时需要添加`-E`参数代理才能生效***
+> 新增了一键安装脚本：
+> `sh -c "$(curl -fsSL https://d.xinit.xyz/scripts/zsh.sh)"`
+> 或：`sh -c "$(wget -qO- https://d.xinit.xyz/scripts/zsh.sh)"`
 
 ## 安装
 
@@ -42,6 +40,8 @@ chsh -s $(which zsh)
 
 安装zsh
 
+> *使用`sudo`命令安装zsh时需要添加`-E`参数代理才能生效*
+
 ```sh
 sudo apt install zsh
 ```
@@ -72,14 +72,13 @@ git clone https://github.com/zsh-users/zsh-history-substring-search ${ZSH_CUSTOM
 
 ###### 以下为可选安装：
 
-```
+
 1. zsh-autocomplete：提供自动提示和补全，相比zsh-autosuggestions功能更强大更复杂（可选）
 ```sh
 git clone --depth 1 https://github.com/marlonrichert/zsh-autocomplete.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autocomplete
 ```
 
-安装power10k主题（可选）
-
+2. 安装power10k主题（可选）
 ```sh
 git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 ```
@@ -87,20 +86,20 @@ git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$H
 ## zsh配置文件修改
 
 
-编辑`~/.zshrc`
+编辑文件`~/.zshrc`
 
-- 找到`ZSH_THEME`，修改为你自己喜欢的一个主题，例如
+- 找到`ZSH_THEME=...`，修改为你自己喜欢的[主题名](https://github.com/ohmyzsh/ohmyzsh/wiki/Themes)，例如
 ```sh
+# 在这里查找和预览其他主题：https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="candy"
 ```
 或者
 ```sh
 # 安装了power10k的话可以按如下设置
-# 或者在这里查找和预览其他主题：https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_THEME="powerlevel10k"
 ```
 
-- 往下找到`plugins`，配置zsh插件，将原有的
+- 往下翻找到`plugins=...`，配置zsh插件，将原有的
     ```sh
     plugins=(git)
 
@@ -260,7 +259,7 @@ rosup(){
     [预览](https://www.programmingfonts.org/#jetbrainsmono)
     [下载](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip)
 
-    <!-- ![Jetbrains Mono Nerd Font](https://img.xinit.xyz/docsify20250710232741447.png) -->
+    ![Jetbrains Mono Nerd Font](imgs/docsify20250710232741447.png)
 2. MesloLG Nerd Font
 
     [预览](https://www.programmingfonts.org/#meslo)
@@ -292,12 +291,12 @@ fc-list | grep JetBrains
 "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font, MesloLGM Nerd Font, monospace"
 
 ```
-<!-- ![Vscode集成终端配置](http://img.xinit.xyz/markdownPixPin_2025-06-16_11-00-02.png?image) -->
+![Vscode集成终端配置](imgs/markdownPixPin_2025-06-16_11-00-02.png?image)
 
 ### Windows Terminal（终端）配置
 在 设置 > 默认值 > 外观 下有字体设置
 
-<!-- ![Windows Terminal（终端）配置](http://img.xinit.xyz/markdownPixPin_2025-06-16_10-58-13.png) -->
+![Windows Terminal（终端）配置](imgs/markdownPixPin_2025-06-16_10-58-13.png)
 
 输入`JetBrainsMono Nerd Font`或点击输入框后会显示系统所有已安装字体，选择JetBrainsMono Nerd Font即可
 
