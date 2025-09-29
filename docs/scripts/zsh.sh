@@ -1,17 +1,15 @@
-printf "请输入 HTTP/HTTPS 代理地址（格式如 192.168.120.1:8080，留空则跳过设置代理）: \n"
+printf "\e[1;36m请输入 HTTP/HTTPS 代理地址（格式如 192.168.120.1:10808，留空则跳过设置代理）: \e[0m\n"
 read -r proxy_input
 
 
 if [ -n "$proxy_input" ]; then
         export http_proxy="http://$proxy_input"
         export https_proxy="http://$proxy_input"
-        printf "已设置代理: http_proxy=$http_proxy, https_proxy=$https_proxy\n"
-else
-    printf "跳过设置代理"
 fi
+printf "\e[1;36m当前代理为: http_proxy=$http_proxy, https_proxy=$https_proxy\e[0m\n"
 # 安装zsh和插件
 printf  "\e[1;36m开始安装zsh curl git \e[0m\n"
-sudo -E apt install zsh curl git
+sudo -E apt install -y zsh curl git
 if [ -d ~/.oh-my-zsh ];then
   printf "\033[1;33m删除目录~/.oh-my-zsh\033[0m\n"
   rm -rf ~/.oh-my-zsh
@@ -44,10 +42,11 @@ if [ "$is_install_plk" = "y" ] || [ "$is_install_plk" = "Y" ];then
     cur_theme=$(grep -E '^ZSH_THEME=' ~/.zshrc | cut -d = -f 2 | tr -d "'\"")
     printf  "\e[1;36m当前主题为：\033[1m$cur_theme\e[0m\n"
     printf  "\e[1;36m设置新主题为：\033[1mpowerlevel10k\e[0m\n"
-    sed -i -E "s/^(ZSH_THEME=)[\"']?[^\"']*[\"']?/\1\"powerlevel10k\"/" ~/.zshrc
+    sed -i -E "s/^(ZSH_THEME=)[\"']?[^\"']*[\"']?/\1\"powerlevel10k/powerlevel10k\"/" ~/.zshrc
 else
     cur_theme=$(grep -E '^ZSH_THEME=' ~/.zshrc | cut -d = -f 2 | tr -d "'\"")
     printf  "\e[1;36m当前主题为：\033[96m$cur_theme\e[0m\n"
+    printf  "\e[1;36m在这里查找和预览其他主题：https://github.com/ohmyzsh/ohmyzsh/wiki/Themes\e[0m\n"
     printf  "\e[1;36m输入新的主题名称或留空以跳过更改主题：\e[0m"
     read -r new_theme
     if [ -n "$new_theme" ];then
@@ -57,7 +56,7 @@ else
 fi
 
 # cp ~/.zshrc ~/.zshrc.bak
-printf  "\e[1;36m更新配置文件.zshrc \e[0m\n"
+printf  "\e[1;36m更新配置文件：~/.zshrc \e[0m\n"
 
 sed -i '/^plugins=(git)$/,/^source \$ZSH\/oh-my-zsh\.sh$/ {
     /^plugins=(git)$/ {
@@ -104,7 +103,7 @@ EOF
 
 if ! grep -q "rosup(){" ~/.zshrc;then
 
-printf  "\e[1;96m是否添加ros2 humble的source脚本（y/n，默认为y）\e[0m"
+printf  "\e[1;96m是否添加ros2 humble的source脚本？（y/n，默认为y）\e[0m"
 read -r is_install_ros
 if [ "$is_install_ros" != "n" -a "$is_install_ros" != "N" ];then
 cat >> ~/.zshrc << EOF
@@ -150,5 +149,5 @@ fi
 
 printf  "\e[1;96m正在更改默认shell \e[0m\n"
 chsh -s $(which zsh)
-printf  "\e[1;96m全部安装完成，切换到zsh \e[0m\n"
+printf  "\e[1;96m全部安装完成，正在切换到zsh \e[0m\n"
 exec zsh
