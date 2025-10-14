@@ -4,3 +4,4 @@
 * [全新Ubuntu系统配置](./全新Ubuntu安装配置.md)
 * [Windows开启ntp服务器](./Windows开启ntp服务器.md)
 * [Flash_win使用手册](./Flash_win使用手册.md)
+* [鲁班猫镜像打包与烧录.md](./鲁班猫镜像打包与烧录.md.md)
