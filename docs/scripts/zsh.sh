@@ -47,7 +47,7 @@ if [ "$is_install_plk" = "y" ] || [ "$is_install_plk" = "Y" ];then
     cur_theme=$(grep -E '^ZSH_THEME=' ~/.zshrc | cut -d = -f 2 | tr -d "'\"")
     printf  "\e[1;36m当前主题为：\033[1;32m$cur_theme\e[0m\n"
     printf  "\e[1;36m设置新主题为：\033[1;32mpowerlevel10k\e[0m\n"
-    sed -i -E "s/^(ZSH_THEME=)[\"']?[^\"']*[\"']?/\1\"powerlevel10k/powerlevel10k\"/" ~/.zshrc
+    sed -i -E "s/^(ZSH_THEME=)[\"']?[^\"']*[\"']?/\1\"powerlevel10k\/powerlevel10k\"/" ~/.zshrc
 else
     cur_theme=$(grep -E '^ZSH_THEME=' ~/.zshrc | cut -d = -f 2 | tr -d "'\"")
     printf  "\e[1;36m当前主题为：\033[1;32m$cur_theme\e[0m\n"
