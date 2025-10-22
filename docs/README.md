@@ -1,44 +1,138 @@
-# 主页
-### 配置教程：
-* [zsh安装与插件配置](./zsh.md)
-* [ssh免密登录配置](./ssh.md)
-* [如何设置代理](./代理配置.md)
-* [全新Ubuntu系统配置](./全新Ubuntu安装配置.md)
-* [Windows开启ntp服务器](./Windows开启ntp服务器.md)
-* [Flash_win使用手册](./Flash_win使用手册.md)
-* [鲁班猫镜像打包与烧录](./鲁班猫镜像打包与烧录.md.md)
 
-### IP分配表
+## 文档编写
 
-主机和单板电脑每人各分配10的倍数个IP地址，传感器也是一样
+使用标准Markdown语法编写文档，所有文档放置在`docs`目录下，图片资源放置到`docs/imgs`下。
 
-[IP分配表在线文档](https://www.kdocs.cn/l/cne9YXWJgTKw)
+添加新文档后需要在`index.md`和`_sidebar.md`中添加新文档的链接
 
-### 文本教程或手册
+## 特殊语法插件
 
-- [Google Style Guides 谷歌代码风格指南](https://google.github.io/styleguide/)
-- shell
-  - [阮一峰 Bash 脚本教程](https://www.bookstack.cn/read/bash-tutorial/docs-intro.md)
-  - [终极 Bash 脚本指南](https://razeen.me/posts/the-ultimate-programmers-guide-to-bash-scripting/)
-- C++
-  - [CPP Reference](https://en.cppreference.com/)
-  - [现代 C++ 教程---高速上手 C++ 11/14/17/20](https://changkun.de/modern-cpp/)
-  - [Effective Modern C++](https://cntransgroup.github.io/EffectiveModernCppChinese/)
-- CMake
-  - [CMake 保姆级教程（上）](https://subingwen.cn/cmake/CMake-primer/index.html)
-  - [CMake 保姆级教程（下）](https://subingwen.cn/cmake/CMake-advanced/)
-- ROS2
-  - [ROS 2 Humble Documentation](https://docs.ros.org/en/humble/)
-- Vue
-  - [Vue.js Official Doc](https://cn.vuejs.org/guide/introduction.html)
-- Javascript
-  - [TypeScript 教程](https://wangdoc.com/typescript/)
-  - [TypeScript 教程](https://wangdoc.com/typescript/)
+### [docsify-plugin-flexible-alerts](https://github.com/fzankl/docsify-plugin-flexible-alerts)
+
+语法：
+```
+> [!NOTE]
+> An alert of type 'note' using global style 'callout'.
+> [!TIP]
+> An alert of type 'tip' using global style 'callout'.
+> [!WARNING]
+> An alert of type 'warning' using global style 'callout'.
+> [!IMPORTANT]
+> An alert of type 'important' using global style 'callout'.
+> [!ATTENTION]
+> An alert of type 'attention' using global style 'callout'.
+```
+效果：
+> [!NOTE]
+> An alert of type 'note' using global style 'callout'.
+
+> [!TIP]
+> An alert of type 'tip' using global style 'callout'.
+
+> [!WARNING]
+> An alert of type 'warning' using global style 'callout'.
+
+> [!IMPORTANT]
+> An alert of type 'important' using global style 'callout'.
+
+> [!ATTENTION]
+> An alert of type 'attention' using global style 'callout'.
+
+### [docsify-tabs](https://jhildenbiddle.github.io/docsify-tabs/#/)
+
+语法：
+```
+<!-- tabs:start -->
+#### **English**
+
+Hello!
+
+#### **French**
+
+Bonjour!
+
+#### **Italian**
+
+Ciao!
+
+<!-- tabs:end -->
+```
+效果：
+<!-- tabs:start -->
+
+#### **English**
+
+Hello!
+
+#### **French**
+
+Bonjour!
+
+#### **Italian**
+
+Ciao!
+
+<!-- tabs:end -->
 
 
-### 推荐视频教程
 
-- Fusion 360
-  - [2023fusion教程](https://www.bilibili.com/video/BV1xX4y1E7nG)
-- 立创EDA
-  - [立创暑期训练营2020](https://www.bilibili.com/video/BV1WV411z7mE)
+### [docsify-termynal](https://github.com/sxin0/docsify-termynal)
+
+语法（把下面的`xxx`替换为`term`）：
+````
+```xxx
+$ php -v
+PHP 7.3.23 (cli) (built: Apr 20 2022 15:59:45)
+$ pip install fastapi
+>> 100%
+# Choose an option (y/n)
+$ y
+// This is a comment
+```
+````
+效果：
+
+```term
+$ php -v
+PHP 7.3.23 (cli) (built: Apr 20 2022 15:59:45)
+$ pip install fastapi
+>> 100%
+# Choose an option (y/n)
+$ y
+// This is a comment
+```
+
+### [docsify-terminal-block](https://github.com/dolanmiu/docsify-terminal-block)
+
+语法：
+````
+```terminal
+npm run start
+$|npm run start
+$|warning|npm run build
+>|info|npm run start
+  |...
+>|error|npm run start
+>|success|npm run start
+
+warning|npm run build
+```
+````
+效果：
+```terminal
+npm run start
+$|npm run start
+$|warning|npm run build
+>|info|npm run start
+  |...
+>|error|npm run start
+>|success|npm run start
+
+warning|npm run build
+```
+
+## 其他无特殊语法插件：
+
+- [docsify-copy-code](https://github.com/jperasmus/docsify-copy-code)
+- [docsify-toc](https://github.com/mrpotatoes/docsify-toc)
+- [docsify-updated](https://github.com/pfeak/docsify-updated)
