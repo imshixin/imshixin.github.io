@@ -1,16 +1,17 @@
 # zsh和oh-my-zsh的安装与配置
 
-> [!NOTE]
+> [!TIP]
 > 新增了一键安装脚本：
 > `sh -c "$(curl -fsSL https://d.xinit.xyz/scripts/zsh.sh)"`
+>
 > 或：`sh -c "$(wget -qO- https://d.xinit.xyz/scripts/zsh.sh)"`
 
 ## 安装
 
-一键全装
+<!-- 一键全装
 
-<!-- 使用圆括号将命令合并为一个命令，避免多个历史记录 -->
-```bash
+使用圆括号将命令合并为一个命令，避免多个历史记录
+
 (
 printf "请输入 HTTP/HTTPS 代理地址（格式如 192.168.120.1:8080，回车跳过）: "
 read -r proxy_input
@@ -35,24 +36,24 @@ echo -e "\e[1;37;42m install zsh and oh-my-zsh plugins ok! \e[0m"
 echo -e "\e[1;37;42m changing default shell \e[0m"
 echo -e "\e[1;37;42m please enter your password: \e[0m"
 chsh -s $(which zsh)
-)
-```
+) -->
 
-安装zsh
+
+**安装zsh：**
 
 > *使用`sudo`命令安装zsh时需要添加`-E`参数代理才能生效*
 
 ```sh
-sudo apt install zsh
+sudo apt install zsh curl git
 ```
 
-安装ohmyzsh
+**安装ohmyzsh：**
 
 ```sh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
-安装ohmyzsh插件
+**安装ohmyzsh插件：**
 
 1. zsh-syntax-highlighting：提供语法高亮和命令检查
 ```sh
@@ -69,16 +70,12 @@ git clone https://github.com/zsh-users/zsh-completions.git ${ZSH_CUSTOM:-${ZSH:-
 4. zsh-history-substring-search：提供历史命令的模糊搜索
 ```sh
 git clone https://github.com/zsh-users/zsh-history-substring-search ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-history-substring-search
-
-###### 以下为可选安装：
-
-
-1. zsh-autocomplete：提供自动提示和补全，相比zsh-autosuggestions功能更强大更复杂（可选）
+```
+5. zsh-autocomplete：提供自动提示和补全，相比zsh-autosuggestions功能更强大更复杂（可选）
 ```sh
 git clone --depth 1 https://github.com/marlonrichert/zsh-autocomplete.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autocomplete
 ```
-
-2. 安装power10k主题（可选）
+6. 安装power10k主题（可选）
 ```sh
 git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 ```
@@ -93,10 +90,9 @@ git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$H
 # 在这里查找和预览其他主题：https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="candy"
 ```
-或者
+如果安装了powerlevel10k，则设置为
 ```sh
-# 安装了power10k的话可以按如下设置
-ZSH_THEME="powerlevel10k"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 ```
 
 - 往下翻找到`plugins=...`，配置zsh插件，将原有的
@@ -134,23 +130,29 @@ ZSH_THEME="powerlevel10k"
     bindkey "$terminfo[kcuu1]" history-substring-search-up
     bindkey "$terminfo[kcud1]" history-substring-search-down
 
-    # 设置提示策略
+    # 设置提示策略包含completion
     export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
-    # zsh-autocomplete提示延迟一定时间
+    # 设置zsh-autocomplete提示延迟一定时间
     zstyle ':autocomplete:*' delay 0.5  # seconds (float)
-    # 开启通配符
+    # 开启通配符传递
     setopt nonomatch
     ```
 
+> [!IMPORTANT]
+> 请检查`~/.bashrc`文件末尾，如果有用export导出一些环境变量，记得把这些命令也拷贝到`~/.zshrc`中，
+> 例如jetson系统中的bashrc定义的cuda的环境变量，不拷贝到zshrc中就无法使用cuda
 
-## .zshrc中的ros 环境配置
 
-> 添加到`~/.zshrc`最后面
+## zsh的 ros 环境配置
+
+> [!NOTE]
+> 下面的代码按需添加到`~/.zshrc`的最后面
 >
-> zsh对ROS需要安装额外的自动补全插件，使用`sudo apt install python3-argcomplete`安装
+> zsh的ROS命令提示需要安装额外的自动补全插件，使用`sudo apt install python3-argcomplete`安装
 
-zsh的代码：
+
+zsh的source函数代码（使用方法为在终端输入`rosup`）：
 ```bash
 rosup(){
         #pushd install > /dev/null
@@ -187,7 +189,7 @@ rosup(){
 }
 ```
 
-自动激活ros环境，有兼容问题暂不推荐使用
+打开终端时自动激活ros环境的脚本，**暂不推荐使用**，使用powerlevel10k主题时有兼容问题
 ```sh
 # 自动source ros环境，目前不建议使用
 if [ -e "install/local_setup.zsh" ]
@@ -265,32 +267,54 @@ rosup(){
     [预览](https://www.programmingfonts.org/#meslo)
     [下载](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/Meslo.zip)
 
-#### Windows
-Windows下解压所有ttf字体文件后全选`ttf文件`右键安装即可
+<!-- tabs:start -->
+#### **Windows**
+解压所有ttf字体文件，全选**ttf文件**，右键安装
 
-#### Linux
+#### **Linux**
 
-一键下载安装命令：
+1. 解压所有ttf文件
 ```bash
-wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip -O JetBrainsMono.zip
 unzip -d JetBrainsMono JetBrainsMono.zip
+```
+2. 创建目录
+```bash
 sudo mkdir -p /usr/share/fonts/JetBrainsMonoNF
-sudo cp JetBrainsMono/JetBrainsMonoNerdFont-Regular.ttf /usr/share/fonts/JetBrainsMonoNF/
-# 刷新字体缓存
+```
+3. 将所有ttf文件拷贝到`/usr/share/fonts/JetBrainsMonoNF`目录下（需要使用root权限）
+
+4. 刷新字体缓存
+```bash
 sudo fc-cache -fv
-# 检查是否安装上字体文件
-fc-list | grep JetBrains
 ```
 
-### Vscode集成终端配置
-在设置中搜索`终端 字体`，第一个选项就是终端的字体设置，输入`JetBrainsMono Nerd Font, MesloLGM Nerd Font, monospace`
-> 逗号分割多个字体，会从第一个往后依次检索系统已安装的字体使用
+> [!NOTE]
+> 一键下载安装JetBrainsMono命令：
+> ```bash
+> wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip -O > JetBrainsMono.zip
+> unzip -d JetBrainsMono JetBrainsMono.zip
+> sudo mkdir -p /usr/share/fonts/JetBrainsMonoNF
+> sudo cp JetBrainsMono/*.ttf /usr/share/fonts/JetBrainsMonoNF/
+> # 刷新字体缓存
+> sudo fc-cache -fv
+> # 检查是否安装上字体文件
+> fc-list | grep JetBrains
+> ```
 
-或者直接在`settings.json`中添加
+<!-- tabs:end -->
+
+### Vscode集成终端字体配置
+
+在vscode设置中搜索`Font Family`，找到设置项`Terminal>Integrated: Font Family`（仅终端）或`Editor: Font Family`（全局）
+
+在最前面添加`JetBrainsMono Nerd Font, `（不要漏了逗号）
+> 字体列表按优先级排列。如果第一个字体不可用，将自动尝试下一个，最后的 monospace是通用字体族名称，用于确保兼容性。
+
+<!-- 或者直接在`settings.json`中添加
 ```json
 "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font, MesloLGM Nerd Font, monospace"
 
-```
+``` -->
 ![Vscode集成终端配置](imgs/markdownPixPin_2025-06-16_11-00-02.png?image)
 
 ### Windows Terminal（终端）配置
@@ -300,22 +324,3 @@ fc-list | grep JetBrains
 
 输入`JetBrainsMono Nerd Font`或点击输入框后会显示系统所有已安装字体，选择JetBrainsMono Nerd Font即可
 
-
-## other
-
-这些不用设置
-
-MVS环境配置，放在最下面：
-```zsh
-alias temp1=sudo cat /sys/class/thermal/thermal_zone1/temp
-alias temp0=sudo cat /sys/class/thermal/thermal_zone0/temp
-alias vnc=tigervncserver -localhost no
-export MVCAM_SDK_PATH=/opt/MVS
-
-export MVCAM_COMMON_RUNENV=/opt/MVS/lib
-
-export MVCAM_GENICAM_CLPROTOCOL=/opt/MVS/lib/CLProtocol
-
-export ALLUSERSPROFILE=/opt/MVS/MVFG
-export LD_LIBRARY_PATH=/opt/MVS/lib/aarch64:$LD_LIBRARY_PATH
-```
