@@ -31,9 +31,7 @@ pon(){
     fi
     ip=$(echo "$input" | awk -F: '{print $1}') # 移除端口号
     ip=$(echo "$ip" | sed -E -e "s/^[[:blank:]]*//" -e "s/[[:blank:]]*$//") # trim
-    echo "ip=${ip}"
     port=$(echo "$input" | awk -F: '{print (NF>1?$2:"")}') # 获取端口号
-    echo "port=${port}"
     dot_count=$(echo $ip | tr -cd "." | wc -m) # 获取ip中.的数量
     case $dot_count in
       0 ) ip=$(echo $default_ip | sed -E "s/(\.[0-9]+){1}$/\.${ip}/")
