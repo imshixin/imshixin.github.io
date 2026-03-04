@@ -11,7 +11,7 @@ printf "\e[1;36m当前代理为: http_proxy=$http_proxy, https_proxy=$https_prox
 printf  "\e[1;36m--------------------------------------------------\e[0m\n"
 printf  "\e[1;36m开始安装zsh curl git \e[0m\n"
 printf  "\e[1;36m--------------------------------------------------\e[0m\n"
-sudo -E apt install -y zsh curl git
+sudo -E apt install -y zsh curl git sed
 if [ -d ~/.oh-my-zsh ];then
   printf "\033[1;33m删除目录~/.oh-my-zsh\033[0m\n"
   rm -rf ~/.oh-my-zsh
@@ -112,7 +112,7 @@ printf  "\e[1;36m--------------------------------------------------\e[0m\n"
 printf  "\e[1;96m是否添加快捷开关代理的脚本？（y/n，默认为y）\e[0m"
 read -r is_install_proxy
 if [ "$is_install_proxy" != "n" -a "$is_install_proxy" != "N" ];then
-sudo -E apt install -y awk sed
+sudo -E apt install -y gawk
 cat >> ~/.zshrc << EOF
 export PROXY_CONF="${HOME}/.proxyrc"
 pon(){
