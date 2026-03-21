@@ -43,7 +43,7 @@ read -r is_install_plk
 if [ "$is_install_plk" = "y" ] || [ "$is_install_plk" = "Y" ];then
 
     printf  "\e[1;36m开始安装powerlevel10k主题\e[0m\n"
-    git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
     cur_theme=$(grep -E '^ZSH_THEME=' ~/.zshrc | cut -d = -f 2 | tr -d "'\"")
     printf  "\e[1;36m当前主题为：\033[1;32m$cur_theme\e[0m\n"
     printf  "\e[1;36m设置新主题为：\033[1;32mpowerlevel10k\e[0m\n"
