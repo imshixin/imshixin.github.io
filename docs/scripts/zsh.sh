@@ -230,4 +230,5 @@ printf  "\e[1;36m--------------------------------------------------\e[0m\n"
 printf  "\e[1;96m正在更改默认shell，请输入当前用户的密码 \e[0m\n"
 chsh -s $(which zsh)
 printf  "\e[1;92m全部安装完成，正在切换到zsh \e[0m\n"
+printf  "\e[1;92m请注意，需要注销当前用户并重新登录或重启系统后默认shell才会切换到zsh!!! \e[0m\n"
 exec zsh
