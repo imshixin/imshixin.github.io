@@ -164,6 +164,9 @@ pon(){
     fi
     export http_proxy="http://\${ip}:\${port}"
     export https_proxy="http://\${ip}:\${port}"
+    # pixi只读大写的代理变量
+    export HTTP_PROXY="http://\${ip}:\${port}"
+    export HTTPS_PROXY="http://\${ip}:\${port}"
     printf "\e[36m已设置http/https代理地址：\e[7mhttp://\${ip}:\${port}\e[0m\n"
     #保存配置
     echo "default_ip=\${ip}\ndefault_port=\${port}" > \${PROXY_CONF}
@@ -189,14 +192,15 @@ sudo -E apt install -y python3-argcomplete
 cat >> ~/.zshrc << EOF
 rosup(){
         #pushd install > /dev/null
-        source /opt/ros/humble/setup.zsh
+        ROSUP_ROSVER=humble
+        source /opt/ros/${ROSUP_ROSVER}/setup.zsh
         if [ \$? ]
         then
                 result="[OK]"
         else
                 result="[Failed]"
         fi
-        printf "%-40s %-5s\n" "sourcing /opt/ros/humble/setup.zsh" "\$result"
+        printf "%-40s %-5s\n" "sourcing /opt/ros/${ROSUP_ROSVER}/setup.zsh" "\$result"
         #popd > /dev/null
         #source local_setup
         if [ -e "install/local_setup.zsh" ]
