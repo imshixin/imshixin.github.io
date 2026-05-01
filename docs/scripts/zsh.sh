@@ -12,6 +12,7 @@ printf  "\e[1;36m--------------------------------------------------\e[0m\n"
 printf  "\e[1;36m开始安装zsh curl git \e[0m\n"
 printf  "\e[1;36m--------------------------------------------------\e[0m\n"
 sudo -E apt install -y zsh curl git sed
+sudo -E apt install -y zoxide
 if [ -d ~/.oh-my-zsh ];then
   printf "\033[1;33m删除目录~/.oh-my-zsh\033[0m\n"
   rm -rf ~/.oh-my-zsh
@@ -75,7 +76,8 @@ sed -i '/^plugins=(git)$/,/^source \$ZSH\/oh-my-zsh\.sh$/ {
 plugins=(
         git # git的aliases
         sudo # 双击esc切换sudo执行
-        z # 输入模糊路径，使用z命令一键跳转到历史目录
+        # z插件使用zoxide替代，你也可以不使用zoxide而是用z插件
+        #z # 输入模糊路径，使用z命令一键跳转到历史目录
         extract # 解压任意压缩包
         zsh-completions
         zsh-autosuggestions
@@ -83,6 +85,9 @@ plugins=(
         zsh-history-substring-search
         # zsh-autocomplete # 这个插件有点花哨，可以不用
         )
+
+# zoxide 初始化
+eval "$(zoxide init zsh)"
 #zsh-completions config before source onmyzsh
 #下面这两行要在`source $ZSH/oh-my-zsh.sh`这之前添加上
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
