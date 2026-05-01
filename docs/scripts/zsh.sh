@@ -193,19 +193,24 @@ printf  "\e[1;36m--------------------------------------------------\e[0m\n"
 printf  "\e[1;96m是否添加ros2 humble的source脚本？（y/n，默认为y）\e[0m"
 read -r is_install_ros
 if [ "$is_install_ros" != "n" -a "$is_install_ros" != "N" ];then
+printf  "\e[1;96m输入版本名（默认为 humble）：\e[0m"
+read ros_install_version
+if [ -z "$ros_install_version" ];then
+        ros_install_version="humble"
+fi
 sudo -E apt install -y python3-argcomplete
 cat >> ~/.zshrc << EOF
 rosup(){
         #pushd install > /dev/null
-        ROSUP_ROSVER=humble
-        source /opt/ros/${ROSUP_ROSVER}/setup.zsh
+        ROSUP_ROSVERION=${ros_install_version}
+        source /opt/ros/\${ROSUP_ROSVERION}/setup.zsh
         if [ \$? ]
         then
                 result="[OK]"
         else
                 result="[Failed]"
         fi
-        printf "%-40s %-5s\n" "sourcing /opt/ros/${ROSUP_ROSVER}/setup.zsh" "\$result"
+        printf "%-40s %-5s\n" "sourcing /opt/ros/\${ROSUP_ROSVERION}/setup.zsh" "\$result"
         #popd > /dev/null
         #source local_setup
         if [ -e "install/local_setup.zsh" ]
@@ -226,12 +231,13 @@ rosup(){
         fi
         # autocomplete for ros2 and colcon
         # need install python3-argcomplete by apt
-        eval "\$(register-python-argcomplete3 ros2)"
-        eval "\$(register-python-argcomplete3 colcon)"
+        # in ubuntu 22.04, using `register-python-argcomplete3`
+        eval "\$(register-python-argcomplete ros2)"
+        eval "\$(register-python-argcomplete colcon)"
 }
 EOF
 fi
-printf  "\e[1;96m已添加ros激活函数，在终端使用命令'rosup'激活ros2 humble环境和当前目录下的ros2环境 \e[0m\n"
+printf  "\e[1;96m已添加ros激活函数，在终端使用命令'rosup'激活ros2 ${ros_install_version}环境和当前目录下的ros2环境 \e[0m\n"
 fi
 
 
