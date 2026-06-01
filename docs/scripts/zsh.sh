@@ -112,7 +112,7 @@ zstyle ':autocomplete:*' delay 0.5  # seconds (float)
 setopt nonomatch
 EOF
 
-if ! grep -q "pon(){" ~/.zshrc;then
+if ! grep -q "pron(){" ~/.zshrc;then
 printf  "\e[1;36m--------------------------------------------------\e[0m\n"
 printf  "\e[1;96m是否添加快捷开关代理的脚本？（y/n，默认为y）\e[0m"
 read -r is_install_proxy
@@ -120,7 +120,7 @@ if [ "$is_install_proxy" != "n" -a "$is_install_proxy" != "N" ];then
 sudo -E apt install -y gawk
 cat >> ~/.zshrc << EOF
 export PROXY_CONF="\${HOME}/.proxyrc"
-pon(){
+pron(){
   # 加载配置
   # default_ip
   # default_port
@@ -172,20 +172,26 @@ pon(){
     # pixi只读大写的代理变量
     export HTTP_PROXY="http://\${ip}:\${port}"
     export HTTPS_PROXY="http://\${ip}:\${port}"
+    # 设置 apt 代理
+    echo "Acquire::http::Proxy \"http://${ip}:${port}\";" | sudo tee /etc/apt/apt.conf.d/proxy.conf >> /dev/null
+    echo "Acquire::https::Proxy \"http://${ip}:${port}\";" | sudo tee -a /etc/apt/apt.conf.d/proxy.conf >> /dev/null
+    
+    printf "\e[36m已设置apt代理地址：\e[7mhttp://${ip}:${port}\e[0m\n"
     printf "\e[36m已设置http/https代理地址：\e[7mhttp://\${ip}:\${port}\e[0m\n"
     #保存配置
     echo "default_ip=\${ip}\ndefault_port=\${port}" > \${PROXY_CONF}
   fi
 }
 
-pof(){
+prof(){
   unset http_proxy https_proxy HTTP_PROXY HTTPS_PROXY
+  echo "" | sudo tee /etc/apt/apt.conf.d/proxy.conf >> /dev/null
   printf  "\e[36m已关闭代理\e[0m\n"
 }
 
 EOF
 fi
-printf  "\e[1;96m已添加开关代理函数，在终端使用命令'pon'开启代理，使用'pof'关闭代理 \e[0m\n"
+printf  "\e[1;96m已添加开关代理函数，在终端使用命令'pron'开启代理，使用'prof'关闭代理 \e[0m\n"
 fi
 
 if ! grep -q "rosup(){" ~/.zshrc;then
