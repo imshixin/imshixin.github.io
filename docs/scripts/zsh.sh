@@ -173,10 +173,10 @@ pron(){
     export HTTP_PROXY="http://\${ip}:\${port}"
     export HTTPS_PROXY="http://\${ip}:\${port}"
     # 设置 apt 代理
-    echo "Acquire::http::Proxy \"http://${ip}:${port}\";" | sudo tee /etc/apt/apt.conf.d/proxy.conf >> /dev/null
-    echo "Acquire::https::Proxy \"http://${ip}:${port}\";" | sudo tee -a /etc/apt/apt.conf.d/proxy.conf >> /dev/null
+    echo "Acquire::http::Proxy \"http://\${ip}:\${port}\";" | sudo tee /etc/apt/apt.conf.d/proxy.conf >> /dev/null
+    echo "Acquire::https::Proxy \"http://\${ip}:\${port}\";" | sudo tee -a /etc/apt/apt.conf.d/proxy.conf >> /dev/null
     
-    printf "\e[36m已设置apt代理地址：\e[7mhttp://${ip}:${port}\e[0m\n"
+    printf "\e[36m已设置apt代理地址：\e[7mhttp://\${ip}:\${port}\e[0m\n"
     printf "\e[36m已设置http/https代理地址：\e[7mhttp://\${ip}:\${port}\e[0m\n"
     #保存配置
     echo "default_ip=\${ip}\ndefault_port=\${port}" > \${PROXY_CONF}
